@@ -1,2 +1,4 @@
 global using NUnit.Framework;
-global using PaymentAPI.Api;
+global using Microsoft.EntityFrameworkCore;
+global using PaymentAPI.Api.Data;
+global using PaymentAPI.Api.Controllers;

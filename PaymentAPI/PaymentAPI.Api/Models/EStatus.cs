@@ -1,0 +1,9 @@
+namespace PaymentAPI.Api.Models;
+public enum EStatus
+{
+  AGUARDANDO_PAGAMENTO,
+  PAGAMENTO_APROVADO,
+  ENVIADO_PARA_TRANSPORTADORA,
+  ENTREGUE,
+  CANCELADA
+}
