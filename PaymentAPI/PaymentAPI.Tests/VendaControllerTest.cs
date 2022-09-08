@@ -14,7 +14,7 @@ public class VendaControllerTest
   }
 
   [Test]
-  public void RegistrarVenda_DeveRetornarOK()
+  public void Registrar_DeveRetornarOK()
   {
   }
 }

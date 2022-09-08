@@ -1,8 +1,15 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace PaymentAPI.Api.Models;
 
 public class Item
 {
-  public int Id { get; set; }
+  [Key, Required]
+  public uint Id { get; set; }
+  [Required]
   public string Nome { get; set; }
-  public decimal Preco { get; set; }
+  [Required]
+  public decimal PrecoUnitario { get; set; }
+  [Required]
+  public uint Quantidade { get; set; }
 }
