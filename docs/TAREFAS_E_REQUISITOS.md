@@ -6,10 +6,11 @@
 
 |⭕A fazer|✴️Fazendo|✅Feito|
 |:-:|:-:|:-:|
-|Definir modelo Venda||Rota com documentação swagger|
-|Registrar venda||Definir modelo Vendedor|
-|Buscar venda||Definir modelo Item|
-|Atualizar venda||Definir modelo ItensDaVenda|
+|Registrar venda||Rota com documentação swagger|
+|Buscar venda||Definir modelo Vendedor|
+|Atualizar venda||Definir modelo Item|
+|||Definir modelo ItensDaVenda|
+|||Definir modelo Venda|
 
 </div>
 
@@ -22,8 +23,8 @@
   - ✅Contém `id`, `nome` e `preço unitario`
 - ✅Definir modelo ItensDaVenda
   - ✅Contém `id da venda`, `id do item`, `quantidade do item`
-- Definir modelo Venda
-  - Uma venda contém informação sobre o `vendedor que a efetivou`, `data`, `identificador do pedido` e os `itens que foram vendidos`
+- ✅Definir modelo Venda
+  - ✅Uma venda contém informação sobre o `vendedor que a efetivou`, `data`, `identificador do pedido` e os `itens que foram vendidos`
   - Também contém `valor`
 - Registrar venda
   - Recebe os dados do vendedor + itens vendidos
