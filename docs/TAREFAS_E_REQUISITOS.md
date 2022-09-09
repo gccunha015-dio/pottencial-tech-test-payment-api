@@ -22,7 +22,7 @@
 - ✅Definir modelo Item
   - ✅Contém `id`, `nome` e `preço unitario`
 - ✅Definir modelo ItensDaVenda
-  - ✅Contém `id da venda`, `id do item`, `quantidade do item`
+  - ✅Contém `id`, `item`, `quantidade do item`
 - ✅Definir modelo Venda
   - ✅Uma venda contém informação sobre o `vendedor que a efetivou`, `data`, `identificador do pedido` e os `itens que foram vendidos`
   - ✅Também contém `valor`
