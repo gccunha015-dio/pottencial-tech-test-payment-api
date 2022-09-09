@@ -3,9 +3,9 @@
 ## Tarefas
 |⭕<br> A fazer|✴️<br> Fazendo|✅<br> Feito|
 |:-:|:-:|:-:|
-|Definir modelo Venda||Rota com documentação swagger|
-|Definir modelo Item||Definir modelo Vendedor|
-|Registrar venda|||
+|Definir modelo ItensDaVenda||Rota com documentação swagger|
+|Definir modelo Venda||Definir modelo Vendedor|
+|Registrar venda||Definir modelo Item|
 |Buscar venda|||
 |Atualizar venda|||
 
@@ -14,8 +14,13 @@
   - ✅Deve ser `http://.../api-docs`
 - ✅Definir modelo Vendedor
   - ✅O vendedor deve possuir `id`, `cpf`, `nome`, `e-mail` e `telefone`
+- ✅Definir modelo Item
+  - ✅Contém `id`, `nome` e `preço unitario`
+- Definir modelo ItensDaVenda
+  - Contém `id da venda`, `id do item`, `quantidade do item`
 - Definir modelo Venda
   - Uma venda contém informação sobre o `vendedor que a efetivou`, `data`, `identificador do pedido` e os `itens que foram vendidos`
+  - Também contém `valor`
 - Registrar venda
   - Recebe os dados do vendedor + itens vendidos
   - Registra venda com status "Aguardando pagamento"
