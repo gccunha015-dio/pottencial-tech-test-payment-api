@@ -5,4 +5,5 @@ public class Item
   public uint Id { get; set; }
   public string Nome { get; set; }
   public decimal PrecoUnitario { get; set; }
+  public uint Quantidade { get; set; }
 }

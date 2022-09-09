@@ -9,7 +9,6 @@
 |Buscar venda|Registrar venda|Rota com documentação swagger|
 |Atualizar venda||Definir modelo Vendedor|
 |||Definir modelo Item|
-|||Definir modelo ItensDaVenda|
 |||Definir modelo Venda|
 
 </div>
@@ -20,9 +19,7 @@
 - ✅Definir modelo Vendedor
   - ✅O vendedor deve possuir `id`, `cpf`, `nome`, `e-mail` e `telefone`
 - ✅Definir modelo Item
-  - ✅Contém `id`, `nome` e `preço unitario`
-- ✅Definir modelo ItensDaVenda
-  - ✅Contém `id`, `item`, `quantidade do item`
+  - ✅Contém `id`, `nome`, `preço unitario` e `quantidade`
 - ✅Definir modelo Venda
   - ✅Uma venda contém informação sobre o `vendedor que a efetivou`, `data`, `identificador do pedido` e os `itens que foram vendidos`
   - ✅Também contém `valor`

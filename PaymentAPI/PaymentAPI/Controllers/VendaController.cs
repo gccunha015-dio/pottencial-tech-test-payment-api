@@ -15,10 +15,11 @@ public class VendaController : ControllerBase
   }
 
   [HttpPost]
-  public async Task<IActionResult> Criar(Venda venda)
+  public async Task<IActionResult> Criar(VendaDTO vendaDTO)
   {
     try
     {
+      Venda venda = new Venda(vendaDTO);
       await _context.Vendas.AddAsync(venda);
       await _context.SaveChangesAsync();
       return Created("v1", venda);
@@ -36,8 +37,7 @@ public class VendaController : ControllerBase
     {
       vendas = _context.Vendas.ToArray(),
       vendedores = _context.Vendedores.ToArray(),
-      itens = _context.Itens.ToArray(),
-      itensDasVendas = _context.ItensDasVendas.ToArray()
+      itens = _context.Itens.ToArray()
     });
   }
 }
