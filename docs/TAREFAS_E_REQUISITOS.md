@@ -6,11 +6,12 @@
 
 |⭕ A fazer|✴️ Fazendo|✅ Feito|
 |:-:|:-:|:-:|
-|Buscar venda||Rota com documentação swagger|
-|Atualizar venda||Definir modelo Vendedor|
+|Atualizar venda||Rota com documentação swagger|
+|||Definir modelo Vendedor|
 |||Definir modelo Item|
 |||Definir modelo Venda|
 |||Registrar venda|
+|||Buscar venda|
 
 </div>
 
@@ -28,8 +29,8 @@
   - ✅ Recebe os dados do vendedor + itens vendidos
   - ✅ Registra venda com status "Aguardando pagamento"
   - ✅ A inclusão de uma venda deve possuir pelo menos 1 item
-- ⭕ Buscar venda
-  - ⭕ Busca pelo Id da venda
+- ✅ Buscar venda
+  - ✅ Busca pelo Id da venda
 - ⭕ Atualizar venda
   - ⭕ Permite que seja atualizado o status da venda
   - ⭕ De: `Aguardando pagamento` Para: `Pagamento Aprovado`

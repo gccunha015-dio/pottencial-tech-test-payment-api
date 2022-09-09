@@ -30,6 +30,22 @@ public class VendaController : ControllerBase
       return UnprocessableEntity(new { erro = e.Message });
     }
   }
+  [HttpGet("{id}")]
+  public async Task<IActionResult> LerPorId(uint id)
+  {
+    try
+    {
+      Venda venda = await _context.Vendas.FindAsync(id);
+      if (venda == null) throw new Exception("Id invalido.");
+      _context.Entry(venda).Reference(v => v.Vendedor).Load();
+      _context.Entry(venda).Collection(v => v.Itens).Load();
+      return Ok(value: venda);
+    }
+    catch (Exception e)
+    {
+      return NotFound(new { erro = e.Message });
+    }
+  }
   private void _validarEntrada(VendaDTO vendaDTO)
   {
     if (vendaDTO.Itens.Count() < 1
