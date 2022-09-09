@@ -25,7 +25,7 @@
   - ✅Contém `id da venda`, `id do item`, `quantidade do item`
 - ✅Definir modelo Venda
   - ✅Uma venda contém informação sobre o `vendedor que a efetivou`, `data`, `identificador do pedido` e os `itens que foram vendidos`
-  - Também contém `valor`
+  - ✅Também contém `valor`
 - Registrar venda
   - Recebe os dados do vendedor + itens vendidos
   - Registra venda com status "Aguardando pagamento"
