@@ -1,5 +1,5 @@
 # Pottencial - Tech Test - Payment API
-## Tarefas [➡️](docs/TAREFAS.md)
+## Tarefas e Requisitos [➡️](docs/TAREFAS_E_REQUISITOS.md)
 
 ## Referências
 - [.NET com Swagger](https://docs.microsoft.com/en-us/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-6.0&tabs=visual-studio-code)
