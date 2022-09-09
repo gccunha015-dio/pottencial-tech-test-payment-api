@@ -1,4 +1,6 @@
 # Pottencial - Tech Test - Payment API
+## Tarefas [➡️](docs/TAREFAS.md)
+
 ## Referências
 - [.NET com Swagger](https://docs.microsoft.com/en-us/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-6.0&tabs=visual-studio-code)
 - [Tutorial de Entity Framework em memoria](https://www.youtube.com/watch?v=Tj3qsKSNvMk)
