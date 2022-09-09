@@ -19,6 +19,9 @@ public class VendaController : ControllerBase
   {
     try
     {
+      if (vendaDTO.Itens.Count() < 1
+        || vendaDTO.Itens.Any((itemDTO) => itemDTO.Quantidade < 1))
+        throw new Exception("A inclusão de uma venda deve possuir pelo menos 1 item.");
       Venda venda = new Venda(vendaDTO);
       await _context.Vendas.AddAsync(venda);
       await _context.SaveChangesAsync();
@@ -26,7 +29,7 @@ public class VendaController : ControllerBase
     }
     catch (Exception e)
     {
-      throw e;
+      return UnprocessableEntity(new { erro = e.Message });
     }
   }
 

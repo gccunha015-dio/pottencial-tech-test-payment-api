@@ -6,12 +6,12 @@ using PaymentAPI.Context;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddDbContext<ApiContext>((options) => options.UseInMemoryDatabase("PaymentAPI"));
+builder.Services.AddDbContext<ApiContext>(
+  (options) => options.UseInMemoryDatabase("PaymentAPI"));
 
-builder.Services.AddControllers()
-  .AddJsonOptions((options) => options
-    .JsonSerializerOptions.Converters
-      .Add(new JsonStringEnumConverter()));
+builder.Services.AddControllers().AddJsonOptions(
+  (options) => options.JsonSerializerOptions.Converters.Add(
+    new JsonStringEnumConverter()));
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen((options) =>
