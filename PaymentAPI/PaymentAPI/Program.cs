@@ -2,6 +2,7 @@ using System.Text.Json.Serialization;
 using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
 using PaymentAPI.Context;
+using PaymentAPI.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -33,6 +34,8 @@ app.UseSwaggerUI(options =>
   options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
   options.RoutePrefix = "api-docs";
 });
+
+app.UseMiddleware<ExceptionHandler>();
 
 app.UseHttpsRedirection();
 

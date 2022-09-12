@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using PaymentAPI.Context;
 using PaymentAPI.Models;
+using PaymentAPI.Helpers;
 
 namespace PaymentAPI.Controllers;
 
@@ -17,40 +18,27 @@ public class VendaController : ControllerBase
   [HttpPost]
   public async Task<IActionResult> Criar(VendaDTO vendaDTO)
   {
-    try
-    {
-      _validarEntrada(vendaDTO);
-      Venda venda = new Venda(vendaDTO);
-      await _context.Vendas.AddAsync(venda);
-      await _context.SaveChangesAsync();
-      return Created("v1", venda);
-    }
-    catch (Exception e)
-    {
-      return UnprocessableEntity(new { erro = e.Message });
-    }
+    if (vendaDTO.Itens.Count() < 1
+      || vendaDTO.Itens.Any((itemDTO) => itemDTO.Quantidade < 1))
+      throw new ApiException(
+        message: "A inclusão de uma venda deve possuir pelo menos 1 item.",
+        statusCode: StatusCodes.Status422UnprocessableEntity);
+    Venda venda = new Venda(vendaDTO);
+    await _context.Vendas.AddAsync(venda);
+    await _context.SaveChangesAsync();
+    return Created("v1", venda);
   }
+
   [HttpGet("{id}")]
   public async Task<IActionResult> LerPorId(uint id)
   {
-    try
-    {
-      Venda venda = await _context.Vendas.FindAsync(id);
-      if (venda == null) throw new Exception("Id invalido.");
-      _context.Entry(venda).Reference(v => v.Vendedor).Load();
-      _context.Entry(venda).Collection(v => v.Itens).Load();
-      return Ok(value: venda);
-    }
-    catch (Exception e)
-    {
-      return NotFound(new { erro = e.Message });
-    }
-  }
-  private void _validarEntrada(VendaDTO vendaDTO)
-  {
-    if (vendaDTO.Itens.Count() < 1
-            || vendaDTO.Itens.Any((itemDTO) => itemDTO.Quantidade < 1))
-      throw new Exception("A inclusão de uma venda deve possuir pelo menos 1 item.");
+    Venda venda = await _context.Vendas.FindAsync(id);
+    if (venda == null) throw new ApiException(
+      message: "Id invalido.",
+      statusCode: StatusCodes.Status404NotFound);
+    _context.Entry(venda).Reference(v => v.Vendedor).Load();
+    _context.Entry(venda).Collection(v => v.Itens).Load();
+    return Ok(value: venda);
   }
 
   [HttpGet]
