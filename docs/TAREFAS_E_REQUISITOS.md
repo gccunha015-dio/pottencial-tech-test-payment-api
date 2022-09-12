@@ -6,7 +6,7 @@
 
 |⭕ A fazer|✴️ Fazendo|✅ Feito|
 |:-:|:-:|:-:|
-|Atualizar venda||Rota com documentação swagger|
+||Atualizar venda|Rota com documentação swagger|
 |||Definir modelo Vendedor|
 |||Definir modelo Item|
 |||Definir modelo Venda|
@@ -31,8 +31,8 @@
   - ✅ A inclusão de uma venda deve possuir pelo menos 1 item
 - ✅ Buscar venda
   - ✅ Busca pelo Id da venda
-- ⭕ Atualizar venda
-  - ⭕ Permite que seja atualizado o status da venda
+- ✴️ Atualizar venda
+  - ✴️ Permite que seja atualizado o status da venda
   - ⭕ De: `Aguardando pagamento` Para: `Pagamento Aprovado`
   - ⭕ De: `Aguardando pagamento` Para: `Cancelada`
   - ⭕ De: `Pagamento Aprovado` Para: `Enviado para Transportadora`

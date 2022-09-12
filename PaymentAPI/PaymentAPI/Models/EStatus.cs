@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace PaymentAPI.Models;
 
 public enum EStatus
@@ -7,4 +9,10 @@ public enum EStatus
   ENVIADO_PARA_TRANSPORTADORA,
   ENTREGUE,
   CANCELADA
+}
+
+public class EStatusDTO
+{
+  [Required]
+  public EStatus Status { get; set; }
 }

@@ -41,6 +41,18 @@ public class VendaController : ControllerBase
     return Ok(value: venda);
   }
 
+  [HttpPatch("{id}")]
+  public async Task<IActionResult> AtualizarStatus(uint id, [FromBody] EStatusDTO novoStatus)
+  {
+    Venda venda = await _context.Vendas.FindAsync(id);
+    if (venda == null) throw new ApiException(
+      message: "Id invalido.",
+      statusCode: StatusCodes.Status404NotFound);
+    venda.Status = novoStatus.Status;
+    await _context.SaveChangesAsync();
+    return Ok(value: venda);
+  }
+
   [HttpGet]
   public IActionResult Ler()
   {
