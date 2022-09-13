@@ -10,6 +10,15 @@ namespace PaymentAPI.Controllers;
 public class VendaController : ControllerBase
 {
   private readonly ApiContext _context;
+  private Dictionary<EStatus, List<EStatus>> _atualizacoesDeStatusPermitidas = new Dictionary<EStatus, List<EStatus>>
+  {
+    { EStatus.AGUARDANDO_PAGAMENTO,
+      new List<EStatus> { EStatus.PAGAMENTO_APROVADO, EStatus.CANCELADA }},
+    { EStatus.PAGAMENTO_APROVADO,
+      new List<EStatus> { EStatus.ENVIADO_PARA_TRANSPORTADORA, EStatus.CANCELADA }},
+    { EStatus.ENVIADO_PARA_TRANSPORTADORA,
+      new List<EStatus> { EStatus.ENTREGUE }}
+  };
   public VendaController(ApiContext context)
   {
     _context = context;
@@ -32,25 +41,31 @@ public class VendaController : ControllerBase
   [HttpGet("{id}")]
   public async Task<IActionResult> LerPorId(uint id)
   {
+    return Ok(value: await _lerDoBancoDeDados(id));
+  }
+
+  [HttpPatch("{id}")]
+  public async Task<IActionResult> AtualizarStatus(uint id, [FromBody] EStatusDTO novoStatusDTO)
+  {
+    Venda venda = await _lerDoBancoDeDados(id);
+    EStatus novoStatus = novoStatusDTO.Status;
+    if (!_podeAtualizarStatus(venda.Status, novoStatus)) throw new ApiException(
+      message: "Operacao invalida.",
+      statusCode: StatusCodes.Status400BadRequest);
+    venda.Status = novoStatus;
+    await _context.SaveChangesAsync();
+    return Ok(value: venda);
+  }
+
+  private async Task<Venda> _lerDoBancoDeDados(uint id)
+  {
     Venda venda = await _context.Vendas.FindAsync(id);
     if (venda == null) throw new ApiException(
       message: "Id invalido.",
       statusCode: StatusCodes.Status404NotFound);
     _context.Entry(venda).Reference(v => v.Vendedor).Load();
     _context.Entry(venda).Collection(v => v.Itens).Load();
-    return Ok(value: venda);
-  }
-
-  [HttpPatch("{id}")]
-  public async Task<IActionResult> AtualizarStatus(uint id, [FromBody] EStatusDTO novoStatus)
-  {
-    Venda venda = await _context.Vendas.FindAsync(id);
-    if (venda == null) throw new ApiException(
-      message: "Id invalido.",
-      statusCode: StatusCodes.Status404NotFound);
-    venda.Status = novoStatus.Status;
-    await _context.SaveChangesAsync();
-    return Ok(value: venda);
+    return venda;
   }
 
   [HttpGet]
@@ -62,5 +77,11 @@ public class VendaController : ControllerBase
       vendedores = _context.Vendedores.ToArray(),
       itens = _context.Itens.ToArray()
     });
+  }
+
+  private bool _podeAtualizarStatus(EStatus anterior, EStatus novo)
+  {
+    return _atualizacoesDeStatusPermitidas.ContainsKey(anterior)
+      && _atualizacoesDeStatusPermitidas[anterior].Contains(novo);
   }
 }
