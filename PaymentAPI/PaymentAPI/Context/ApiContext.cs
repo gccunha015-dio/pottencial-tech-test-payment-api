@@ -1,7 +1,5 @@
-using Microsoft.EntityFrameworkCore;
-using PaymentAPI.Models;
-
 namespace PaymentAPI.Context;
+
 public class ApiContext : DbContext
 {
   public DbSet<Item> Itens { get; set; }

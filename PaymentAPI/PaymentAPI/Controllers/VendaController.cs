@@ -1,8 +1,3 @@
-using Microsoft.AspNetCore.Mvc;
-using PaymentAPI.Context;
-using PaymentAPI.Models;
-using PaymentAPI.Helpers;
-
 namespace PaymentAPI.Controllers;
 
 [ApiController]
@@ -29,13 +24,20 @@ public class VendaController : ControllerBase
   {
     if (vendaDTO.Itens.Count() < 1
       || vendaDTO.Itens.Any((itemDTO) => itemDTO.Quantidade < 1))
+    {
       throw new ApiException(
         message: "A inclusão de uma venda deve possuir pelo menos 1 item.",
-        statusCode: StatusCodes.Status422UnprocessableEntity);
+        statusCode: StatusCodes.Status422UnprocessableEntity
+      );
+    }
     Venda venda = new Venda(vendaDTO);
     await _context.Vendas.AddAsync(venda);
     await _context.SaveChangesAsync();
-    return Created("v1", venda);
+    return CreatedAtAction(
+      actionName: nameof(LerPorId),
+      routeValues: new { id = venda.Id },
+      value: venda
+    );
   }
 
   [HttpGet("{id}")]
@@ -49,9 +51,13 @@ public class VendaController : ControllerBase
   {
     Venda venda = await _lerDoBancoDeDados(id);
     EStatus novoStatus = novoStatusDTO.Status;
-    if (!_podeAtualizarStatus(venda.Status, novoStatus)) throw new ApiException(
-      message: "Operacao invalida.",
-      statusCode: StatusCodes.Status400BadRequest);
+    if (!_podeAtualizarStatus(venda.Status, novoStatus))
+    {
+      throw new ApiException(
+        message: "Operacao invalida.",
+        statusCode: StatusCodes.Status400BadRequest
+      );
+    }
     venda.Status = novoStatus;
     await _context.SaveChangesAsync();
     return Ok(value: venda);
@@ -60,23 +66,16 @@ public class VendaController : ControllerBase
   private async Task<Venda> _lerDoBancoDeDados(uint id)
   {
     Venda venda = await _context.Vendas.FindAsync(id);
-    if (venda == null) throw new ApiException(
-      message: "Id invalido.",
-      statusCode: StatusCodes.Status404NotFound);
+    if (venda == null)
+    {
+      throw new ApiException(
+        message: "Id invalido.",
+        statusCode: StatusCodes.Status404NotFound
+      );
+    }
     _context.Entry(venda).Reference(v => v.Vendedor).Load();
     _context.Entry(venda).Collection(v => v.Itens).Load();
     return venda;
-  }
-
-  [HttpGet]
-  public IActionResult Ler()
-  {
-    return Ok(new
-    {
-      vendas = _context.Vendas.ToArray(),
-      vendedores = _context.Vendedores.ToArray(),
-      itens = _context.Itens.ToArray()
-    });
   }
 
   private bool _podeAtualizarStatus(EStatus anterior, EStatus novo)

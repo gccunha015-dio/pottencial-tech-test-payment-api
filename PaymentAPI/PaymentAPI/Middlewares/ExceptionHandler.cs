@@ -1,7 +1,3 @@
-using System.Text.Json;
-
-using PaymentAPI.Helpers;
-
 namespace PaymentAPI.Middlewares;
 
 public class ExceptionHandler
@@ -20,14 +16,13 @@ public class ExceptionHandler
     }
     catch (Exception exception)
     {
-      await HandleExceptionAsync(context, exception);
+      await _handleExceptionAsync(context, exception);
     }
   }
-  private async Task HandleExceptionAsync(HttpContext context, Exception exception)
+  private async Task _handleExceptionAsync(HttpContext context, Exception exception)
   {
     var response = context.Response;
     response.ContentType = "application/json";
-
     switch (exception)
     {
       case ApiException ex:
@@ -37,7 +32,9 @@ public class ExceptionHandler
         response.StatusCode = StatusCodes.Status500InternalServerError;
         break;
     }
-    var json = JsonSerializer.Serialize(new { erro = exception?.Message });
+    var json = JsonSerializer.Serialize(
+      new { erro = exception?.Message }
+    );
     await response.WriteAsync(json);
   }
 }

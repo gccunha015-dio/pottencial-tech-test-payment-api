@@ -1,5 +1,3 @@
-using System.ComponentModel.DataAnnotations;
-
 namespace PaymentAPI.Models;
 
 public class Item : ItemDTO

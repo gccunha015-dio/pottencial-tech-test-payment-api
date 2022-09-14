@@ -1,0 +1,11 @@
+global using System.ComponentModel.DataAnnotations;
+global using System.Text.Json;
+global using System.Text.Json.Serialization;
+global using Microsoft.OpenApi.Models;
+global using Microsoft.EntityFrameworkCore;
+global using Microsoft.AspNetCore.Mvc;
+global using PaymentAPI.Context;
+global using PaymentAPI.Helpers;
+global using PaymentAPI.Interfaces;
+global using PaymentAPI.Models;
+global using PaymentAPI.Middlewares;

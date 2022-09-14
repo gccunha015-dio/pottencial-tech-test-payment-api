@@ -1,9 +1,3 @@
-using System.Text.Json.Serialization;
-using Microsoft.OpenApi.Models;
-using Microsoft.EntityFrameworkCore;
-using PaymentAPI.Context;
-using PaymentAPI.Middlewares;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
