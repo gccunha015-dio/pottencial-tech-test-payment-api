@@ -47,7 +47,7 @@ public class VendaController : ControllerBase
   }
 
   [HttpPatch("{id}")]
-  public async Task<IActionResult> AtualizarStatus(uint id, [FromBody] EStatusDTO novoStatusDTO)
+  public async Task<IActionResult> AtualizarStatus(uint id, [FromBody] StatusDTO novoStatusDTO)
   {
     Venda venda = await _lerDoBancoDeDados(id);
     EStatus novoStatus = novoStatusDTO.Status;

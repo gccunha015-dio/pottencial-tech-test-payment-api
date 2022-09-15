@@ -1,4 +1,4 @@
-namespace PaymentAPI.Context;
+namespace PaymentAPI.Data;
 
 public class ApiContext : DbContext
 {

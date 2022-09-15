@@ -8,9 +8,3 @@ public enum EStatus
   ENTREGUE,
   CANCELADA
 }
-
-public class EStatusDTO
-{
-  [Required]
-  public EStatus Status { get; set; }
-}
