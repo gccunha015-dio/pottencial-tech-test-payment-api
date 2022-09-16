@@ -1,13 +1,40 @@
 # Pottencial - Tech Test - Payment API
-## Tarefas e Requisitos [➡️](docs/TAREFAS_E_REQUISITOS.md)
+## Tarefas
 
-## Referências
-- [.NET com Swagger](https://docs.microsoft.com/en-us/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-6.0&tabs=visual-studio-code)
-- [Tutorial de Entity Framework em memoria](https://www.youtube.com/watch?v=Tj3qsKSNvMk)
-- [Busca de dados no Entity Framework](https://docs.microsoft.com/en-us/ef/ef6/querying/related-data)
-- Tratamento de erros
-  - [1](https://jasonwatmore.com/post/2022/01/17/net-6-global-error-handler-tutorial-with-example)
-  - [2](https://www.syncfusion.com/blogs/post/global-exception-handling-in-net-6.aspx)
-- [Testes com Entity Framework em memoria](https://docs.microsoft.com/en-us/ef/core/testing/testing-without-the-database#inmemory-provider)
-- [Testes unitarios com NUnit](https://www.treinaweb.com.br/blog/teste-unitarios-no-c-com-o-nunit)
-- [Testes unitarios em ASP.NET Web API](https://docs.microsoft.com/en-us/aspnet/web-api/overview/testing-and-debugging/unit-testing-with-aspnet-web-api)
+<div align="center">
+
+|⭕ A fazer|✴️ Fazendo|✅ Feito|
+|:-:|:-:|:-:|
+|||Rota com documentação swagger|
+|||Definir modelo Vendedor|
+|||Definir modelo Item|
+|||Definir modelo Venda|
+|||Registrar venda|
+|||Buscar venda|
+|||Atualizar venda|
+
+</div>
+
+## Requisitos
+- ✅ Rota com documentação swagger
+  - ✅ Deve ser `http://.../api-docs`
+- ✅ Definir modelo Vendedor
+  - ✅ O vendedor deve possuir `id`, `cpf`, `nome`, `e-mail` e `telefone`
+- ✅ Definir modelo Item
+  - ✅ Contém `id`, `nome`, `preço unitario` e `quantidade`
+- ✅ Definir modelo Venda
+  - ✅ Uma venda contém informação sobre o `vendedor que a efetivou`, `data`, `identificador do pedido` e os `itens que foram vendidos`
+  - ✅ Também contém `valor`
+- ✅ Registrar venda
+  - ✅ Recebe os dados do vendedor + itens vendidos
+  - ✅ Registra venda com status "Aguardando pagamento"
+  - ✅ A inclusão de uma venda deve possuir pelo menos 1 item
+- ✅ Buscar venda
+  - ✅ Busca pelo Id da venda
+- ✅ Atualizar venda
+  - ✅ Permite que seja atualizado o status da venda
+  - ✅ De: `Aguardando pagamento` Para: `Pagamento Aprovado`
+  - ✅ De: `Aguardando pagamento` Para: `Cancelada`
+  - ✅ De: `Pagamento Aprovado` Para: `Enviado para Transportadora`
+  - ✅ De: `Pagamento Aprovado` Para: `Cancelada`
+  - ✅ De: `Enviado para Transportador` Para: `Entregue`

@@ -2,10 +2,9 @@ namespace PaymentAPI.Helpers;
 
 public class ApiException : Exception
 {
-  public int StatusCode { get; set; }
-  public ApiException() : base() { }
-  public ApiException(string message, int statusCode = 400) : base(message)
+  public int Status { get; set; }
+  public ApiException(string mensagem, int status) : base(mensagem)
   {
-    StatusCode = statusCode;
+    Status = status;
   }
 }

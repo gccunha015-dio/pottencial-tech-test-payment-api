@@ -7,4 +7,9 @@ public abstract class ARepository
   {
     _context = context;
   }
+
+  public async Task Salvar()
+  {
+    await _context.SaveChangesAsync();
+  }
 }

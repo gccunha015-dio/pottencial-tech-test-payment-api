@@ -1,6 +1,6 @@
-namespace PaymentAPI.Models;
+namespace PaymentAPI.Models.Base;
 
-public abstract class AItem
+public abstract class Item
 {
   [Required]
   public string Nome { get; set; }

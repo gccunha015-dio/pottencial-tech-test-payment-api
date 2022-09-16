@@ -2,8 +2,7 @@ namespace PaymentAPI.Data;
 
 public interface IRepository<T>
 {
-  Task<T> GetById(uint id);
-  Task Insert(T value);
-  Task Update(T value);
-  Task Save();
+  Task<T> LerPorId(uint id);
+  Task Inserir(T value);
+  Task Atualizar(T value);
 }

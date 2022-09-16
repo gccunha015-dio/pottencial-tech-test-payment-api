@@ -4,6 +4,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<ApiContext>(
   (options) => options.UseInMemoryDatabase("PaymentAPI"));
 
+builder.Services.AddScoped<VendaRepository>();
+builder.Services.AddScoped<VendaService>();
+
 builder.Services.AddControllers().AddJsonOptions(
   (options) => options.JsonSerializerOptions.Converters.Add(
     new JsonStringEnumConverter()));
@@ -29,7 +32,7 @@ app.UseSwaggerUI(options =>
   options.RoutePrefix = "api-docs";
 });
 
-app.UseMiddleware<ExceptionHandler>();
+app.UseMiddleware<TratadorDeErros>();
 
 app.UseHttpsRedirection();
 

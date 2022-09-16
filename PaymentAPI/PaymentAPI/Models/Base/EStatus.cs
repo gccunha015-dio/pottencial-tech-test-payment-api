@@ -1,4 +1,4 @@
-namespace PaymentAPI.Models;
+namespace PaymentAPI.Models.Base;
 
 public enum EStatus
 {
