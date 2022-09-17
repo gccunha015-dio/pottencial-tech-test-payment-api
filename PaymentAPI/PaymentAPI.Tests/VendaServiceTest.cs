@@ -3,7 +3,7 @@ namespace PaymentAPI.Tests;
 [TestFixture]
 public class VendaServiceTest : BaseTest
 {
-  private VendaService _service;
+  protected VendaService _service;
 
   [SetUp]
   public void _beforeEach()
