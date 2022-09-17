@@ -4,7 +4,7 @@ public class VendaRepository : ARepository, IRepository<VendaRecord>
 {
   public VendaRepository(ApiContext context) : base(context) { }
 
-  public async Task<VendaRecord> LerPorId(uint id)
+  public async Task<VendaRecord> GetById(uint id)
   {
     var venda = await _context.Vendas.FindAsync(id);
     if (venda == null) return null;
@@ -13,17 +13,17 @@ public class VendaRepository : ARepository, IRepository<VendaRecord>
     return venda;
   }
 
-  public async Task Inserir(VendaRecord venda)
+  public async Task Insert(VendaRecord venda)
   {
     var vendedor = await _context.Vendedores.FindAsync(venda.Vendedor.Id);
     if (vendedor != null) venda.Vendedor = vendedor;
     await _context.Vendas.AddAsync(venda);
-    await Salvar();
+    await Save();
   }
 
-  public async Task Atualizar(VendaRecord venda)
+  public async Task Update(VendaRecord venda)
   {
     _context.Vendas.Update(venda);
-    await Salvar();
+    await Save();
   }
 }

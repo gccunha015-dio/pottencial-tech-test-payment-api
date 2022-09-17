@@ -20,6 +20,10 @@ builder.Services.AddSwaggerGen((options) =>
     Title = "Payment API",
     Description = "API para teste técnico da Pottencial."
   });
+
+  var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+  var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+  options.IncludeXmlComments(xmlPath);
 });
 
 var app = builder.Build();
@@ -32,7 +36,7 @@ app.UseSwaggerUI(options =>
   options.RoutePrefix = "api-docs";
 });
 
-app.UseMiddleware<TratadorDeErros>();
+app.UseMiddleware<ExceptionHandler>();
 
 app.UseHttpsRedirection();
 

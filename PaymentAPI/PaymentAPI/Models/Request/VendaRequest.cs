@@ -11,7 +11,7 @@ public class VendaRequest : IRequest<VendaRecord>
   {
     return new VendaRecord
     {
-      Valor = _calcularValor(),
+      Valor = _calculateValor(),
       Data = DateTime.Now,
       Status = EStatus.AGUARDANDO_PAGAMENTO,
       Vendedor = this.Vendedor.ToRecord(),
@@ -26,11 +26,11 @@ public class VendaRequest : IRequest<VendaRecord>
     ).ToList<ItemRecord>();
   }
 
-  private decimal _calcularValor()
+  private decimal _calculateValor()
   {
     return Itens.Aggregate(
       seed: 0.0M,
-      (soma, item) => soma + item.PrecoUnitario * item.Quantidade
+      (sum, item) => sum + item.PrecoUnitario * item.Quantidade
     );
   }
 }

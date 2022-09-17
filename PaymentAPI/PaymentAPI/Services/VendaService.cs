@@ -3,7 +3,7 @@ namespace PaymentAPI.Services;
 public class VendaService
 {
   private readonly VendaRepository _repository;
-  private readonly Dictionary<EStatus, List<EStatus>> _atualizacoesDeStatusPermitidas = new Dictionary<EStatus, List<EStatus>>
+  private readonly Dictionary<EStatus, List<EStatus>> _allowedStatusUpdates = new Dictionary<EStatus, List<EStatus>>
   {
     { EStatus.AGUARDANDO_PAGAMENTO,
       new List<EStatus> { EStatus.PAGAMENTO_APROVADO, EStatus.CANCELADA }},
@@ -18,43 +18,43 @@ public class VendaService
     _repository = repository;
   }
 
-  public async Task<VendaResponse> Criar(VendaRequest request)
+  public async Task<VendaResponse> Create(VendaRequest request)
   {
     if (request.Itens.Count() < 1
       || request.Itens.Any((item) => item.Quantidade < 1))
-      throw new QuantidadeDeItensException();
+      throw new ItemQuantityApiException();
     var venda = request.ToRecord();
-    await _repository.Inserir(venda);
+    await _repository.Insert(venda);
     return venda.ToResponse();
   }
 
-  public async Task<VendaResponse> LerPorId(uint id)
+  public async Task<VendaResponse> GetById(uint id)
   {
     var venda = await _getRecordById(id);
     return venda.ToResponse();
   }
 
-  public async Task<VendaResponse> AtualizarStatus(uint id, [FromBody] StatusRequest request)
+  public async Task<VendaResponse> UpdateStatus(uint id, [FromBody] StatusRequest request)
   {
     var venda = await _getRecordById(id);
-    EStatus novoStatus = request.Status;
-    if (!_podeAtualizarStatus(venda.Status, novoStatus))
-      throw new OperacaoInvalidaException();
-    venda.Status = novoStatus;
-    await _repository.Atualizar(venda);
+    EStatus newStatus = request.Status;
+    if (!_isAllowedToUpdateStatus(venda.Status, newStatus))
+      throw new InvalidOperationApiException();
+    venda.Status = newStatus;
+    await _repository.Update(venda);
     return venda.ToResponse();
   }
 
   private async Task<VendaRecord> _getRecordById(uint id)
   {
-    var venda = await _repository.LerPorId(id);
-    if (venda == null) throw new IdInvalidoException();
+    var venda = await _repository.GetById(id);
+    if (venda == null) throw new InvalidIdApiException();
     return venda;
   }
 
-  private bool _podeAtualizarStatus(EStatus anterior, EStatus novo)
+  private bool _isAllowedToUpdateStatus(EStatus previous, EStatus newS)
   {
-    return _atualizacoesDeStatusPermitidas.ContainsKey(anterior)
-      && _atualizacoesDeStatusPermitidas[anterior].Contains(novo);
+    return _allowedStatusUpdates.ContainsKey(previous)
+      && _allowedStatusUpdates[previous].Contains(newS);
   }
 }
